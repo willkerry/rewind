@@ -87,30 +87,6 @@
 		line-height: 1;
 	}
 
-	.new {
-		margin: 0 0 0.5rem 0;
-	}
-
-	input {
-		border: 1px solid transparent;
-	}
-
-	input:focus-visible {
-		box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.1);
-		border: 1px solid #ff3e00 !important;
-		outline: none;
-	}
-
-	.new input {
-		font-size: 28px;
-		width: 100%;
-		padding: 0.5em 1em 0.3em 1em;
-		box-sizing: border-box;
-		background: rgba(255, 255, 255, 0.05);
-		border-radius: 8px;
-		text-align: center;
-	}
-
 	.todo {
 		display: grid;
 		grid-template-columns: 2rem 1fr 2rem;
@@ -136,12 +112,6 @@
 		display: flex;
 		align-items: center;
 		flex: 1;
-	}
-
-	.todo input {
-		flex: 1;
-		padding: 0.5em 2em 0.5em 0.8em;
-		border-radius: 3px;
 	}
 
 	.todo button {

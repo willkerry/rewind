@@ -14,12 +14,17 @@
 	export const prerender = true;
 </script>
 
+<script>
+	import Counter from '$lib/Counter.svelte';
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="content">
+<main>
+	<Counter />
 	<h1>About this app</h1>
 
 	<p>
@@ -27,7 +32,7 @@
 		following into your command line and following the prompts:
 	</p>
 
-	<pre>npm init svelte</pre>
+	<pre><code>npm init svelte</code></pre>
 
 	<p>
 		The page you're looking at is purely static HTML, with no client-side interactivity needed.
@@ -39,12 +44,10 @@
 		The <a href="/todos">TODOs</a> page illustrates SvelteKit's data loading and form handling. Try using
 		it with JavaScript disabled!
 	</p>
-</div>
+</main>
 
 <style>
-	.content {
-		width: 100%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top) auto 0 auto;
+	main {
+		margin-top: var(--xlg-pad);
 	}
 </style>

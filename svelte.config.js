@@ -8,6 +8,13 @@ const config = {
 		// Override http methods in the Todo forms
 		methodOverride: {
 			allowed: ['PATCH', 'DELETE']
+		},
+		vite: {
+			resolve: {
+				alias: {
+					'xmlhttprequest-ssl': './node_modules/engine.io-client/lib/xmlhttprequest.js'
+				}
+			}
 		}
 	}
 };
