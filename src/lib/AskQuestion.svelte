@@ -15,31 +15,9 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleQuestion}>
-	<input bind:value={questionString} class="input" autocomplete="off" />
-	<button type="submit" disabled={!questionString.trim()}>Ask</button>
-	<button class="debug" on:click={() => (questionString = makeNonsenseQuestion())}>R</button>
+<form on:submit|preventDefault={handleQuestion} class="flex gap-1">
+	<input type="text" bind:value={questionString} autocomplete="off" />
+	<button disabled={!questionString.trim()}>Ask</button>
+	<button on:click={() => (questionString = makeNonsenseQuestion())}>R</button>
 </form>
 
-<style>
-	input {
-		padding: 0 1rem;
-		flex-grow: 1;
-		margin: 0.25rem;
-	}
-	button {
-		padding: 0 1rem;
-		margin: 0.25rem;
-	}
-
-	form {
-		display: flex;
-		height: 3rem;
-	}
-
-	.debug {
-		padding: 0.17rem 0.1rem;
-		font-weight: 700;
-		background-color: var(--black);
-	}
-</style>

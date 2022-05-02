@@ -3,8 +3,10 @@
 </script>
 
 <script>
+	import EnterConnectionCode from '$lib/EnterConnectionCode.svelte';
 	import Controls from '$lib/Controls.svelte';
 	import QuestionList from '$lib/QuestionList.svelte';
+	import { socketNumber } from '../socketStore';
 </script>
 
 <svelte:head>
@@ -12,7 +14,9 @@
 	<meta name="description" content="" />
 </svelte:head>
 
-<section>
+{#if $socketNumber <= 0}
+	<EnterConnectionCode />
+{:else}
 	<QuestionList />
 	<Controls />
-</section>
+{/if}

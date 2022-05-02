@@ -4,43 +4,80 @@
 
 <script>
 	import { sendSpeed } from '$lib/socket.js';
-	import { TortoiseFill, HareFill, PlayFill } from 'framework7-icons/svelte';
+	import TortoiseFill from 'framework7-icons/svelte/svelte/TortoiseFill.svelte';
+	import HareFill from 'framework7-icons/svelte/svelte/HareFill.svelte';
+	import PlayFill from 'framework7-icons/svelte/svelte/PlayFill.svelte';
 
 	let speed = 0;
 	$: sendSpeed(speed);
 </script>
 
-<div>
-	<button class="slow" aria-label="Slow" on:click={() => (speed = -1)} disabled={speed === -1}
-		><TortoiseFill /></button
-	>
-	<button class="normal" aria-label="Normal" on:click={() => (speed = 0)} disabled={speed === 0}
-		><PlayFill /></button
-	>
-	<button class="fast" aria-label="Fast" on:click={() => (speed = 1)} disabled={speed === 1}
-		><HareFill /></button
-	>
-</div>
+<form on:submit|preventDefault class="flex gap-1">
+	<label for="speed-controller-button-group"> Speed </label>
+	<div id="speed-controller-button-group" class="speed-control-group">
+		<button
+			class="slow"
+			aria-label="Slow"
+			on:click={() => (speed = -1)}
+			disabled={speed === -1}
+			aria-selected={speed === -1}
+		>
+			<TortoiseFill /></button
+		>
+		<button
+			class="normal"
+			aria-label="Normal"
+			on:click={() => (speed = 0)}
+			disabled={speed === 0}
+			aria-selected={speed === 0}><PlayFill /></button
+		>
+		<button
+			class="fast"
+			aria-label="Fast"
+			on:click={() => (speed = 1)}
+			disabled={speed === 1}
+			aria-selected={speed === 1}><HareFill /></button
+		>
+	</div>
+</form>
 
 <style>
-	div {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+	form {
+		@apply flex items-center gap-2;
 	}
+	label {
+		@apply text-sm font-semibold text-gray-600;
+	}
+	.speed-control-group {
+		@apply flex;
+	}
+
 	button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.5rem;
-		margin: 0.25rem;
+		@apply rounded-none;
+	}
+
+	button:focus {
+		@apply ring-inset;
 	}
 
 	.slow {
-		background-color: var(--red);
+		@apply rounded-l border-r-0;
 	}
 
 	.fast {
-		background-color: var(--green);
+		@apply rounded-r border-l-0;
 	}
+
+	/*
+	button {
+		@apply relative float-left border-r-0 rounded-none;
+	}
+
+	button:first-child {
+		@apply rounded-l;
+	}
+
+	button:last-child {
+		@apply rounded-r;
+	} */
 </style>
