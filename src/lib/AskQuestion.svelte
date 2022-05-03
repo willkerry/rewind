@@ -18,6 +18,5 @@
 <form on:submit|preventDefault={handleQuestion} class="flex gap-1">
 	<input type="text" bind:value={questionString} autocomplete="off" />
 	<button disabled={!questionString.trim()}>Ask</button>
-	<button on:click={() => (questionString = makeNonsenseQuestion())}>R</button>
+	<button on:click|preventDefault={() => (questionString = makeNonsenseQuestion())}>R</button>
 </form>
-

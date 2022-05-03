@@ -21,6 +21,7 @@
 			on:click={() => (speed = -1)}
 			disabled={speed === -1}
 			aria-selected={speed === -1}
+			title="Slow down"
 		>
 			<TortoiseFill /></button
 		>
@@ -29,14 +30,16 @@
 			aria-label="Normal"
 			on:click={() => (speed = 0)}
 			disabled={speed === 0}
-			aria-selected={speed === 0}><PlayFill /></button
+			aria-selected={speed === 0}
+			title="All good"><PlayFill /></button
 		>
 		<button
 			class="fast"
 			aria-label="Fast"
 			on:click={() => (speed = 1)}
 			disabled={speed === 1}
-			aria-selected={speed === 1}><HareFill /></button
+			aria-selected={speed === 1}
+			title="Speed up"><HareFill /></button
 		>
 	</div>
 </form>

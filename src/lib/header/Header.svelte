@@ -8,7 +8,8 @@
 		<ul class="flex gap-4 items-center">
 			<li class:active={$page.url.pathname === '/'}>
 				<a sveltekit:prefetch href="/" class="brand">
-					<span class="rw">◀◀</span>Rewind
+					<!-- <span class="rw">◀◀</span> -->
+					Rewind
 				</a>
 			</li>
 			<SocketNumber />
