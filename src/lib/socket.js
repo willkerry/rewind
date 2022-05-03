@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 import { addSpeed } from '../speedStore';
 import { addQuestion } from '../questionsStore';
 
-const socket = io('http://localhost:3001');
+const socket = io('https://rewind-server-production-d410.up.railway.app');
 
 socket.on('questions', (data) => {
 	addQuestion(data.question);
