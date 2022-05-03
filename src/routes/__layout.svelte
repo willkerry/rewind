@@ -3,8 +3,9 @@
 	import '../app.css';
 </script>
 
-<main class="min-h-screen flex flex-col">
+<main class="min-h-screen h-screen flex flex-col">
 	<Header />
+
 	<slot />
 </main>
 
