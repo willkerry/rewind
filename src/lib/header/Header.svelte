@@ -27,7 +27,7 @@
 	.brand {
 		@apply font-black uppercase text-transparent tracking-wide bg-clip-text bg-gradient-to-br from-pink-700 to-orange-400;
 	}
-	.rw {
+	/* .rw {
 		@apply tracking-[-0.3em] mr-2;
-	}
+	} */
 </style>
