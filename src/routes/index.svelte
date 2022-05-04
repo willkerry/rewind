@@ -6,6 +6,7 @@
 	import EnterConnectionCode from '$lib/EnterConnectionCode.svelte';
 	import Controls from '$lib/Controls.svelte';
 	import QuestionList from '$lib/QuestionList.svelte';
+	import SpeedIndicator from '$lib/SpeedIndicator.svelte';
 	import { socketNumber } from '../socketStore';
 </script>
 
@@ -17,6 +18,7 @@
 {#if $socketNumber <= 0}
 	<EnterConnectionCode />
 {:else}
+	<SpeedIndicator />
 	<QuestionList />
 	<Controls />
 {/if}

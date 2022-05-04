@@ -1,18 +1,14 @@
 import { get, writable } from 'svelte/store';
 
-export const speeds = writable([]);
+export const speeds = writable(0);
 
 /**
  * @param {number} speed
  */
 export function addSpeed(speed) {
-	/**
-	 * @type {number[][]}
-	 */
-	let tempSpeeds = get(speeds);
-	tempSpeeds.push([speed, Date.now()]);
-	// @ts-ignore
-	speeds.update(() => tempSpeeds);
+	let previousSpeed = get(speeds);
+	let newAverage = (9 * previousSpeed + speed) / 10;
+	speeds.update(() => newAverage);
 	return;
 }
 
