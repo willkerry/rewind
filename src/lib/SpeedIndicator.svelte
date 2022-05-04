@@ -2,10 +2,11 @@
 	import { speeds } from './../speedStore.js';
 	import { tweened } from 'svelte/motion';
 	import { cubicInOut } from 'svelte/easing';
+	import { fade } from 'svelte/transition';
 	import TortoiseFill from 'framework7-icons/svelte/svelte/TortoiseFill.svelte';
 	import HareFill from 'framework7-icons/svelte/svelte/HareFill.svelte';
 
-	let negative = true;
+	let sign = 0;
 	let percentWidth = 0;
 
 	let left = tweened(0, {
@@ -20,10 +21,10 @@
 	});
 
 	speeds.subscribe((speed) => {
-		negative = speed < 0;
+		sign = Math.sign(speed);
 		percentWidth = Math.round(Math.abs(speed) * 100);
 
-		if (negative) {
+		if (sign === -1) {
 			left.set(percentWidth);
 			$right && right.set(0);
 		} else {
@@ -34,22 +35,29 @@
 </script>
 
 <div
-	class="border-b grid w-full grid-cols-2 justify-items-stretch bg-orange-100 text-white px-4 py-1"
+	class:bg-orange-100={sign === 1}
+	class:bg-pink-100={sign === -1}
+	class:bg-white={sign === 0}
+	class="border-b grid w-full grid-cols-2 justify-items-stretch bg-orange-100 text-white px-4 py-1 transition"
 >
-	<div class="flex justify-end items-center">
-		{#if negative}<TortoiseFill class="text-pink-600 mr-1" />{/if}
+	<div class="flex h-6 justify-end items-center">
+		{#if sign === -1}<div transition:fade>
+				<TortoiseFill class="text-pink-600 mr-1" />
+			</div>{/if}
 		<div
 			class="rounded-l h-2 bg-gradient-to-r from-pink-600 transition"
 			style={`width: ${$left}%`}
 		/>
 	</div>
 
-	<div class="flex justify-start items-center">
+	<div class="flex h-6 justify-start items-center">
 		<div
 			class="bg-gradient-to-l h-2 rounded-r from-orange-600 transition"
 			style={`width: ${$right}%`}
 		/>
-		{#if !negative}<HareFill class="text-orange-600 ml-1" />{/if}
+		{#if sign === 1}<div transition:fade>
+				<HareFill class="text-orange-600 ml-1" />
+			</div>{/if}
 	</div>
 </div>
 
