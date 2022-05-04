@@ -29,5 +29,6 @@ export function sendQuestion(questionString) {
  * @param {number} speed
  */
 export function sendSpeed(speed) {
+	if (speed === 0) return;
 	socket.emit('speeds', { speed, timestamp: Date.now() });
 }

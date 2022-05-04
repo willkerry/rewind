@@ -8,8 +8,26 @@
 	import HareFill from 'framework7-icons/svelte/svelte/HareFill.svelte';
 	import PlayFill from 'framework7-icons/svelte/svelte/PlayFill.svelte';
 
+	let disableInputs = false;
 	let speed = 0;
+	// Svelte transforms this to a function that fires when speed changes
 	$: sendSpeed(speed);
+
+	/**
+	 * @param {number} ms
+	 */
+	function wait(ms) {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	}
+
+	/**
+	 * @param {number} ms
+	 */
+	async function disabledFor(ms) {
+		disableInputs = true;
+		await wait(ms);
+		disableInputs = false;
+	}
 </script>
 
 <form on:submit|preventDefault class="flex gap-1">
@@ -18,8 +36,8 @@
 		<button
 			class="slow"
 			aria-label="Slow"
-			on:click={() => (speed = -1)}
-			disabled={speed === -1}
+			on:click={() => ((speed = -1), disabledFor(6000))}
+			disabled={disableInputs}
 			aria-selected={speed === -1}
 			title="Slow down"
 		>
@@ -28,16 +46,16 @@
 		<button
 			class="normal"
 			aria-label="Normal"
-			on:click={() => (speed = 0)}
-			disabled={speed === 0}
+			on:click={() => ((speed = 0), disabledFor(6000))}
+			disabled={disableInputs}
 			aria-selected={speed === 0}
 			title="All good"><PlayFill /></button
 		>
 		<button
 			class="fast"
 			aria-label="Fast"
-			on:click={() => (speed = 1)}
-			disabled={speed === 1}
+			on:click={() => ((speed = 1), disabledFor(6000))}
+			disabled={disableInputs}
 			aria-selected={speed === 1}
 			title="Speed up"><HareFill /></button
 		>
@@ -63,15 +81,6 @@
 		@apply ring-inset;
 	}
 
-	.slow {
-		@apply rounded-l border-r-0;
-	}
-
-	.fast {
-		@apply rounded-r border-l-0;
-	}
-
-	/*
 	button {
 		@apply relative float-left border-r-0 rounded-none;
 	}
@@ -80,7 +89,11 @@
 		@apply rounded-l;
 	}
 
+	button:not(:last-child) {
+		@apply border-l;
+	}
+
 	button:last-child {
-		@apply rounded-r;
-	} */
+		@apply rounded-r border-r;
+	}
 </style>
