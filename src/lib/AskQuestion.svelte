@@ -4,7 +4,7 @@
 
 <script>
 	import { sendQuestion } from '$lib/socket.js';
-	import { makeNonsenseQuestion } from '$lib/testing.js';
+	import { makeNonsenseQuestion } from '$lib/utils/testing.js';
 
 	let questionString = '';
 	function handleQuestion() {

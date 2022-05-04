@@ -1,5 +1,5 @@
 <script context="module">
-	export const prerender = true;
+	// export const prerender = true;
 </script>
 
 <script>
@@ -7,26 +7,34 @@
 	import TortoiseFill from 'framework7-icons/svelte/svelte/TortoiseFill.svelte';
 	import HareFill from 'framework7-icons/svelte/svelte/HareFill.svelte';
 	import PlayFill from 'framework7-icons/svelte/svelte/PlayFill.svelte';
+	import { wait } from '$lib/utils/wait.js';
 
 	let disableInputs = false;
-	let speed = 0;
-	// Svelte transforms this to a function that fires when speed changes
-	$: sendSpeed(speed);
+	let countdown = 0;
 
 	/**
-	 * @param {number} ms
+	 * @param {-1 | 0 | 1} num
 	 */
-	function wait(ms) {
-		return new Promise((resolve) => setTimeout(resolve, ms));
+	async function handleSubmit(num) {
+		if (disableInputs) return;
+		disableInputs = true;
+		printCountdown(60);
+		sendSpeed(num);
+		await wait(60000);
+		disableInputs = false;
 	}
 
 	/**
-	 * @param {number} ms
+	 * @param {number} secs
 	 */
-	async function disabledFor(ms) {
-		disableInputs = true;
-		await wait(ms);
-		disableInputs = false;
+	async function printCountdown(secs) {
+		countdown = secs;
+		await wait(1000);
+		if (secs > 0) {
+			printCountdown(secs - 1);
+		} else {
+			countdown = 0;
+		}
 	}
 </script>
 
@@ -36,9 +44,8 @@
 		<button
 			class="slow"
 			aria-label="Slow"
-			on:click={() => ((speed = -1), disabledFor(6000))}
+			on:click={() => handleSubmit(-1)}
 			disabled={disableInputs}
-			aria-selected={speed === -1}
 			title="Slow down"
 		>
 			<TortoiseFill /></button
@@ -46,20 +53,19 @@
 		<button
 			class="normal"
 			aria-label="Normal"
-			on:click={() => ((speed = 0), disabledFor(6000))}
+			on:click={() => handleSubmit(0)}
 			disabled={disableInputs}
-			aria-selected={speed === 0}
 			title="All good"><PlayFill /></button
 		>
 		<button
 			class="fast"
 			aria-label="Fast"
-			on:click={() => ((speed = 1), disabledFor(6000))}
+			on:click={() => handleSubmit(1)}
 			disabled={disableInputs}
-			aria-selected={speed === 1}
 			title="Speed up"><HareFill /></button
 		>
 	</div>
+	<span class="xs font-semibold countdown text-gray-400" hidden={!countdown}>{countdown}</span>
 </form>
 
 <style>

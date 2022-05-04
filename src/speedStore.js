@@ -7,7 +7,7 @@ export const speeds = writable(0);
  */
 export function addSpeed(speed) {
 	let previousSpeed = get(speeds);
-	let newAverage = (9 * previousSpeed + speed) / 10;
+	let newAverage = (19 * previousSpeed + speed) / 20;
 	speeds.update(() => newAverage);
 	return;
 }
